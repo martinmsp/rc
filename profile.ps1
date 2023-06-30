@@ -8,6 +8,8 @@ $env:path += ";C:\program files\cmake\bin"
 $env:path += ";C:\Program Files (x86)\GnuWin32\bin"
 $env:path += ";C:\Program Files\7-Zip"
 
+set-psreadlineoption -colors @{command="`e[39m";operator="`e[39m";parameter="`e[39m"}
+
 function ..
 {
 	cd ..
@@ -82,7 +84,7 @@ function hklm
 
 function l
 {
-	d .
+	countFiles
 }
 
 function ll
@@ -97,7 +99,7 @@ function prompt
 {
 	$location = $($(get-location) -replace ".+\\.+\\$env:username", '家')
 
-	return "`e[36m那么。我们开始。《$location》"
+	return "`e[91m那么。我们开始。《`e[93m$location`e[91m》`e[39m"
 }
 
 ### R ###
@@ -117,19 +119,19 @@ function countFilesWrite
 {
 	param ($num, $name, $col)
 	$num = "[$num]"
-	$filecolor = "`e[36m"
+	$filecolor = ""
 	$separator = ""
 	$spacing = 31
 
 	if (test-path $name -pathtype container) {
 		$filecolor = "`e[96m"
-		$separator = "`e[36m\"
+		$separator = "`e[39m\"
 	}
 	elseif ($name -like "*.exe") {
 		$filecolor = "`e[92m"
 	}
 
-	write-host "`e[36m$num$filecolor$name$separator" -nonewline
+	write-host "`e[39m$num$filecolor$name$separator" -nonewline
 
 	#
 	# actually you have to go through the entire string to determine the proper length
@@ -192,7 +194,7 @@ function tour
 	$tour = ".\_tour"
 
 	if (test-path $tour)
-		{ $('"' + $(get-content $tour) + '"') | write-host -foregroundcolor "darkcyan" }
+		{ $('"' + $(get-content $tour) + '"') | write-host -foregroundcolor "white" }
 }
 
 ### W ###
