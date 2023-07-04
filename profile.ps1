@@ -106,11 +106,11 @@ function countFilesWrite
 	$max_spacing = 31
 	$spacing = $max_spacing
 
-	if (test-path $file.fullname -pathtype container) {
+	if ($file.psiscontainer) {
 		$filecolor = "`e[96m"
 		$separator += "\"
 		$spacing--
-	} elseif ($file.fullname -like "*.exe") {
+	} elseif ($file.extension -eq ".exe") {
 		$filecolor = "`e[92m"
 		$separator += "*"
 		$spacing--
