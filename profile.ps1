@@ -10,20 +10,67 @@ $env:path += ";C:\Program Files\7-Zip"
 
 set-psreadlineoption -colors @{command="`e[39m";operator="`e[39m";parameter="`e[39m"}
 
+function prompt
+{
+	$location = $($(get-location) -replace ".+\\.+\\$env:username", '家')
+
+	return "`e[91m那么。我们开始。《`e[93m$location`e[91m》`e[39m"
+}
+
+# --- Abbreviations ---
+
 function ..
 {
 	cd ..
 	l
 }
 
-### C ###
-
 function x
 {
 	exit
 }
 
-### D ###
+function E
+{
+	param ($msg)
+
+	write-host "`n`t`e[91m* * * $msg * * *`n"
+}
+
+function 关电脑
+{
+	stop-computer
+}
+
+function hklm
+{
+	param ($path)
+
+	return "HKLM:\software\microsoft\windows nt\currentversion\$path"
+}
+
+function l
+{
+	param ($path)
+
+	countFiles $path
+}
+
+function rc
+{
+	param ($path)
+
+	remove-item -confirm $path
+}
+
+function v
+{
+	param ($path)
+
+	gvim $path
+}
+
+# --- File Handling ---
 
 function d
 {
@@ -48,137 +95,74 @@ function d
 	countFiles
 }
 
-function dh
-{
-	param ($path)
-
-	d "$home\$path"
-}
-
-### E ###
-
-function E
-{
-	param ($msg)
-
-	write-host "`n`t`e[91m* * * $msg * * *`n"
-}
-
-### G ###
-
-function 关电脑
-{
-	stop-computer
-}
-
-### H ###
-
-function hklm
-{
-	param ($path)
-
-	return "HKLM:\software\microsoft\windows nt\currentversion\$path"
-}
-
-### L ###
-
-function l
-{
-	countFiles
-}
-
-function ll
-{
-	clear
-	d .
-}
-
-### P ###
-
-function prompt
-{
-	$location = $($(get-location) -replace ".+\\.+\\$env:username", '家')
-
-	return "`e[91m那么。我们开始。《`e[93m$location`e[91m》`e[39m"
-}
-
-### R ###
-
-function rc
-{
-	param ($path)
-
-	remove-item -confirm $path
-}
-
-### S ###
-
 $global:colmax = 2
 
 function countFilesWrite
 {
-	param ($num, $name, $col)
+	param ($file, $num, $name, $col)
 	$num = "[$num]"
 	$filecolor = ""
-	$separator = ""
-	$spacing = 31
+	$separator = "`e[39m"
+	$max_spacing = 31
+	$spacing = $max_spacing
 
-	if (test-path $name -pathtype container) {
+	if (test-path $file.fullname -pathtype container) {
 		$filecolor = "`e[96m"
-		$separator = "`e[39m\"
-	}
-	elseif ($name -like "*.exe") {
+		$separator += "\"
+		$spacing--
+	} elseif ($file.fullname -like "*.exe") {
 		$filecolor = "`e[92m"
+		$separator += "*"
+		$spacing--
+	} elseif ((get-item $file.fullname 2>&1 | out-null).linktype -eq "symboliclink") {
+		$filecolor = "`e[97m"
+		$separator += "->"
+		$spacing -= 2
 	}
 
 	write-host "`e[39m$num$filecolor$name$separator" -nonewline
 
-	#
-	# actually you have to go through the entire string to determine the proper length
-	#
-	if (stringWide $name)
-		{ $spacing = $spacing -gt $name.length ? $spacing - $name.length : $spacing }
+	$spacing -= screenWidth($name)
 
-	if ($separator)
-		{ $spacing-- }
-
-	if ($name.length -gt $spacing) {
+	if ($name.length -gt $max_spacing) {
 		write-host
 		$col = 0
 		return $col
 	}
 
 	$spacing -= $num.length
-	$spacing -= $name.length
 
-	while ($spacing -gt 0) {
-		write-host ' ' -nonewline
-		$spacing--
-	}
+	for (; $spacing -gt 0; $spacing--)
+		{ write-host ' ' -nonewline }
+
 	$col++
+
 	if ($col -eq $colmax) {
 		write-host
 		$col = 0
 	}
+
 	return $col
 }
 
 function countFiles
 {
+	param ($path)
+
 	$i = 1
 	$max = 105
 	$col = 0
-	$force = ""
 
-	if ((get-location).path -ne $home)
-		{ $force = "-force" }
+	foreach ($file in get-childitem $path -force) {
+		if ($file -match "C:\\Users\\$env:username\\ntuser")
+			{ continue }
 
-	foreach ($file in invoke-expression "get-childitem $force") {
-		$file = $file.name
-		$col = countFilesWrite $i $file $col
-		invoke-expression "`$global:$i = `"$file`""
-		invoke-expression "function global:d$i { d `"$file`" }"
+		$name = $file.name
+		$col = countFilesWrite $file $i $name $col
+		invoke-expression "`$global:$i = `"$name`""
+		invoke-expression "function global:d$i { d `"$name`" }"
 		$i++
+
 		if ($i -gt $max)
 			{ return E "很多文件" }
 	}
@@ -186,8 +170,6 @@ function countFiles
 	if ($col -gt 0)
 		{ write-host }
 }
-
-### T ###
 
 function tour
 {
@@ -197,35 +179,21 @@ function tour
 		{ $('"' + $(get-content $tour) + '"') | write-host -foregroundcolor "white" }
 }
 
-### W ###
-
-function wfunction
-{
-	param ($f)
-
-	get-content "function:\$f"
-}
-
-### V ###
-
-function v
-{
-	param ($path)
-
-	gvim $path
-}
-
-### Z ###
-
-function stringWide
+function screenWidth
 {
 	param ($s)
+	$width = 0
 
-	return ($s.length * 3 -eq [system.text.encoding]::utf8.getbytecount($s))
+	for ($i = 0; $i -lt $s.length; $i++) {
+		if ([system.text.encoding]::utf8.getbytecount($s.substring($i, 1)) -lt 3)
+			{ $width += 1 }
+		else
+			{ $width += 2 }
+	}
+
+	return $width
 }
 
-#
 # --- Init ---
-#
 
 countFiles

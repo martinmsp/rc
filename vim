@@ -4,6 +4,8 @@ if has("win32") || has("win64")
 	set encoding=utf-8
 endif
 
+set visualbell
+
 " --- Abbreviations ---
 
 let $h = $HOME
