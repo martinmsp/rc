@@ -114,7 +114,7 @@ function countFilesWrite
 		$filecolor = "`e[92m"
 		$separator += "*"
 		$spacing--
-	} elseif ((get-item $file.fullname 2>&1 | out-null).linktype -eq "symboliclink") {
+	} elseif ($file.linktype -eq "symboliclink") {
 		$filecolor = "`e[97m"
 		$separator += "->"
 		$spacing -= 2

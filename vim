@@ -10,7 +10,6 @@ set visualbell
 
 let $h = $HOME
 let $rc = "$HOME\\_vimrc"
-" let $ps = "$HOME\\documents\\powershell\\profile.ps1"
 let $ps = "$HOME\\rc\\profile.ps1"
 
 " --- GUI ---
