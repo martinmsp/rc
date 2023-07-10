@@ -49,11 +49,38 @@ x()
 
 # --- File Handling ---
 
+screenWidth()
+{
+	local -
+	set -f
+	local IFS=$'\n'
+
+	local s=$1
+	local width=0
+	local i=0
+	local len
+
+	while test $i -lt ${#s}; do
+		printf "%s%n" ${s:$i:1} len >/dev/null
+
+		if test $len -lt 3; then
+			let width+=1
+		else
+			let width+=2
+		fi
+
+		let i++
+	done
+
+	return $width
+}
+
 count_files()
 {
 	local -
 	set -f
 	local IFS=$'\n'
+
 	local num=1
 	local col=0
 	local col_max=2
@@ -92,7 +119,9 @@ count_files()
 
 		let spacing-=${#num}
 		let spacing-=2
-		let spacing-=${#file}
+		#let spacing-=${#file}
+		screenWidth $file
+		let spacing-=$?
 		let spacing-=${#separator}
 
 		let num++
