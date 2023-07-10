@@ -24,7 +24,10 @@ PROMPT_COMMAND[0]=prompt
 d()
 {
 	cd "$@"
-	l
+
+	if test $? -eq 0; then
+		l
+	fi
 }
 
 E()
@@ -119,7 +122,6 @@ count_files()
 
 		let spacing-=${#num}
 		let spacing-=2
-		#let spacing-=${#file}
 		screenWidth $file
 		let spacing-=$?
 		let spacing-=${#separator}
