@@ -87,72 +87,58 @@ function x
 
 $global:col_max = 2
 
-function countFilesWrite
-{
-	param ($file, $num, $name, $col)
-	$color = ""
-	$separator = ""
-	$max_spacing = 31
-	$spacing = $max_spacing
-
-	if ($file.psiscontainer) {
-		$color = "`e[96m"
-		$separator = "\"
-	} elseif ($file.extension -eq ".exe") {
-		$color = "`e[92m"
-		$separator = "*"
-	} elseif ($file.linktype -eq "symboliclink") {
-		$color = "`e[97m"
-		$separator = "@"
-	}
-
-	write-host "[$num]$color$name`e[39m$separator" -nonewline
-
-	if ($name.length -gt $max_spacing) {
-		write-host
-		$col = 0
-		return $col
-	}
-
-	$spacing -= "$num".length
-	$spacing -= 2
-	$spacing -= screenWidth($name)
-	$spacing -= $separator.length
-
-	for (; $spacing -gt 0; $spacing--)
-		{ write-host ' ' -nonewline }
-
-	$col++
-
-	if ($col -eq $col_max) {
-		write-host
-		$col = 0
-	}
-
-	return $col
-}
-
 function countFiles
 {
 	param ($path)
-
 	$num = 1
-	$max_files = 105
 	$col = 0
+	$max_spacing = 31
+	$max_files = 105
 
 	foreach ($file in get-childitem $path -force) {
+		$spacing = $max_spacing
+		$separator = ""
+		$color = ""
+
 		if ($file -match "C:\\Users\\$env:username\\ntuser")
 			{ continue }
 
 		$name = $file.name
-		$col = countFilesWrite $file $num $name $col
+
+		if ($file.psiscontainer) {
+			$color = "`e[96m"
+			$separator = "\"
+		} elseif ($file.extension -eq ".exe") {
+			$color = "`e[92m"
+			$separator = "*"
+		} elseif ($file.linktype -eq "symboliclink") {
+			$color = "`e[97m"
+			$separator = "@"
+		}
+
+		write-host "[$num]$color$name`e[39m$separator" -nonewline
 
 		if ($num -le $max_files) {
 			invoke-expression "`$global:$num = `"$name`""
 			invoke-expression "function global:d$num { d `"$name`" }"
 		}
 
+		$spacing -= "$num".length
+		$spacing -= 2
+		$spacing -= screenWidth($name)
+		$spacing -= $separator.length
+
 		$num++
+		$col++
+
+		if ($name.length -gt $max_spacing -or $col -eq $col_max) {
+			write-host
+			$col = 0
+			$spacing = 0
+		}
+
+		for (; $spacing -gt 0; $spacing--)
+			{ write-host ' ' -nonewline }
 	}
 
 	if ($col -gt 0)
