@@ -25,9 +25,17 @@ function ..
 	l
 }
 
-function x
+function d
 {
-	exit
+	param ($path)
+	$copy = $pwd
+
+	cd $path
+
+	if ($copy.path -ne $pwd.path) {
+		tour
+		countFiles
+	}
 }
 
 function E
@@ -70,59 +78,35 @@ function v
 	gvim $path
 }
 
-# --- File Handling ---
-
-function d
+function x
 {
-	param ($path)
-
-	switch -regex ($path) {
-		'^[-+]$' {
-			set-location $path
-			break
-		}
-		default {
-			$path = $path ? $path : $home
-			if (test-path $path -pathtype container) {
-				set-location $path
-			}
-			else {
-				return E "you dumb motherfucker"
-			}
-		}
-	}
-	tour
-	countFiles
+	exit
 }
 
-$global:colmax = 2
+# --- File Handling ---
+
+$global:col_max = 2
 
 function countFilesWrite
 {
 	param ($file, $num, $name, $col)
-	$num = "[$num]"
-	$filecolor = ""
-	$separator = "`e[39m"
+	$color = ""
+	$separator = ""
 	$max_spacing = 31
 	$spacing = $max_spacing
 
 	if ($file.psiscontainer) {
-		$filecolor = "`e[96m"
-		$separator += "\"
-		$spacing--
+		$color = "`e[96m"
+		$separator = "\"
 	} elseif ($file.extension -eq ".exe") {
-		$filecolor = "`e[92m"
-		$separator += "*"
-		$spacing--
+		$color = "`e[92m"
+		$separator = "*"
 	} elseif ($file.linktype -eq "symboliclink") {
-		$filecolor = "`e[97m"
-		$separator += "->"
-		$spacing -= 2
+		$color = "`e[97m"
+		$separator = "@"
 	}
 
-	write-host "`e[39m$num$filecolor$name$separator" -nonewline
-
-	$spacing -= screenWidth($name)
+	write-host "[$num]$color$name`e[39m$separator" -nonewline
 
 	if ($name.length -gt $max_spacing) {
 		write-host
@@ -130,14 +114,17 @@ function countFilesWrite
 		return $col
 	}
 
-	$spacing -= $num.length
+	$spacing -= "$num".length
+	$spacing -= 2
+	$spacing -= screenWidth($name)
+	$spacing -= $separator.length
 
 	for (; $spacing -gt 0; $spacing--)
 		{ write-host ' ' -nonewline }
 
 	$col++
 
-	if ($col -eq $colmax) {
+	if ($col -eq $col_max) {
 		write-host
 		$col = 0
 	}
@@ -149,8 +136,8 @@ function countFiles
 {
 	param ($path)
 
-	$i = 1
-	$max = 105
+	$num = 1
+	$max_files = 105
 	$col = 0
 
 	foreach ($file in get-childitem $path -force) {
@@ -158,13 +145,14 @@ function countFiles
 			{ continue }
 
 		$name = $file.name
-		$col = countFilesWrite $file $i $name $col
-		invoke-expression "`$global:$i = `"$name`""
-		invoke-expression "function global:d$i { d `"$name`" }"
-		$i++
+		$col = countFilesWrite $file $num $name $col
 
-		if ($i -gt $max)
-			{ return E "很多文件" }
+		if ($num -le $max_files) {
+			invoke-expression "`$global:$num = `"$name`""
+			invoke-expression "function global:d$num { d `"$name`" }"
+		}
+
+		$num++
 	}
 
 	if ($col -gt 0)
@@ -196,4 +184,4 @@ function screenWidth
 
 # --- Init ---
 
-countFiles
+l
