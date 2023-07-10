@@ -14,7 +14,7 @@ function prompt
 {
 	$location = $($(get-location) -replace ".+\\.+\\$env:username", '家')
 
-	return "`e[91m那么。我们开始。《`e[93m$location`e[91m》`e[39m"
+	return "`e[91m那么。我们开始。《`e[96m$location`e[91m》`e[39m"
 }
 
 # --- Abbreviations ---
@@ -116,7 +116,7 @@ function countFiles
 			$separator = "@"
 		}
 
-		write-host "[$num]$color$name`e[39m$separator" -nonewline
+		write-host "`e[93m[$num]`e[39m$color$name`e[39m$separator" -nonewline
 
 		if ($num -le $max_files) {
 			invoke-expression "`$global:$num = `"$name`""
