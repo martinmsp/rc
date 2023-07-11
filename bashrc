@@ -114,7 +114,7 @@ count_files()
 			color="\e[96m"
 		fi
 
-		printf "[$num]$color$file\e[39m$separator"
+		printf "\e[93m[$num]\e[39m$color$file\e[39m$separator"
 
 		if test $num -le $max_files; then
 			eval "d$num() { d $(printf "%q" "$dir$file"); }"
@@ -129,7 +129,7 @@ count_files()
 		let num++
 		let col++
 
-		if test $col -eq $col_max; then
+		if test ${#file} -gt $max_spacing || test $col -eq $col_max; then
 			printf "\n"
 			col=0
 			spacing=0
