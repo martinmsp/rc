@@ -1,3 +1,5 @@
+HISTIGNORE=l:x
+
 prompt()
 {
 	local pwd=
@@ -21,6 +23,20 @@ PROMPT_COMMAND[0]=prompt
 	l
 }
 
+but()
+{
+	local cmd=$1
+
+	set -- $(history 2 | head -1)
+
+	if test $# -gt 3; then
+		E "I RECKON YOUR WRONG"
+		return 1
+	fi
+
+	eval "$cmd $3"
+}
+
 d()
 {
 	cd "$@"
@@ -28,6 +44,11 @@ d()
 	if test $? -eq 0; then
 		l
 	fi
+}
+
+e()
+{
+	echo "$@"
 }
 
 E()
