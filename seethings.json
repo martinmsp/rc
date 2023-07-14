@@ -43,6 +43,7 @@
         "defaults": 
         {
             "colorScheme": "seethings.JSON",
+	    "cursorShape": "filledBox",
             "font": 
             {
                 "face": "NSimSun",
@@ -93,6 +94,18 @@
                 "hidden": true,
                 "name": "Visual Studio Debug Console",
                 "source": "VSDebugConsole"
+            },
+            {
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": true,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
@@ -283,6 +296,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -306,35 +342,27 @@
             "yellow": "#808000"
         },
         {
-            "name": "seethings.JSON",
-            "foreground": "#3A96DD",
             "background": "#000000",
-            "cursorColor": "#FFFFFF",
-            "selectionBackground": "#FFFFFF",
-
             "black": "#000000",
-            "brightBlack": "#000000",
-
             "blue": "#0000FF",
+            "brightBlack": "#000000",
             "brightBlue": "#0000FF",
-
-            "cyan": "#00FFFF",
             "brightCyan": "#00FFFF",
-
-            "green": "#00FF00",
             "brightGreen": "#00FF00",
-
-            "purple": "#9B30FF",
             "brightPurple": "#9B30FF",
-
-            "red": "#FF0000",
             "brightRed": "#FF0000",
-
-            "white": "#FFFFFF",
             "brightWhite": "#FFFFFF",
-
-            "yellow": "#FFFF00",
-            "brightYellow": "#FFFF00"
+            "brightYellow": "#FFFF00",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#00FFFF",
+            "foreground": "#3A96DD",
+            "green": "#00FF00",
+            "name": "seethings.JSON",
+            "purple": "#9B30FF",
+            "red": "#FF0000",
+            "selectionBackground": "#FFFFFF",
+            "white": "#FFFFFF",
+            "yellow": "#FFFF00"
         }
     ],
     "themes": 
