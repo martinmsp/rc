@@ -1,3 +1,5 @@
+set -o noclobber
+
 HISTIGNORE=l:x
 
 prompt()
