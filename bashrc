@@ -58,6 +58,11 @@ E()
 	printf "\e[91m* * * %s * * *\e[39m\n" "$@"
 }
 
+F()
+{
+	file "$(type -p $1)"
+}
+
 l()
 {
 	count_files "$@"
