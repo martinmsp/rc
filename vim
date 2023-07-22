@@ -1,16 +1,19 @@
 " For set <option>=<value>: White space between '=' and <value> is not allowed.
 
-if has("win32") || has("win64")
-	set encoding=utf-8
-endif
-
+set encoding=utf-8
 set visualbell
+
+if has("win32") || has("win64")
+	let $rcdir = "$HOME\\rc\\"
+else
+	let $rcdir = "$HOME/rc/"
+endif
 
 " --- Abbreviations ---
 
-let $h = $HOME
-let $rc = "$HOME\\_vimrc"
-let $ps = "$HOME\\rc\\profile.ps1"
+let $rc = $rcdir .. "vim"
+let $ps = $rcdir .. "profile.ps1"
+let $bash = $rcdir .. "bashrc"
 
 " --- GUI ---
 
