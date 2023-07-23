@@ -7,6 +7,7 @@ $env:path += ";C:\program files\git\bin"
 $env:path += ";C:\program files\cmake\bin"
 $env:path += ";C:\Program Files (x86)\GnuWin32\bin"
 $env:path += ";C:\Program Files\7-Zip"
+$env:path += ";C:\Users\marti\AppData\Local\Android\Sdk\platform-tools"
 
 set-psreadlineoption -colors @{command="`e[39m";operator="`e[39m";parameter="`e[39m"}
 
