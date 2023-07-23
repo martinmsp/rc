@@ -25,6 +25,18 @@ function ..
 	l
 }
 
+function but($cmd)
+{
+	$lastcmd = -split (get-history -count 1).commandline
+
+	if ($lastcmd.count -ne 2) {
+		E "I RECKON YOUR WRONG"
+		return
+	}
+
+	invoke-expression "$cmd $($lastcmd[1])"
+}
+
 function d($path)
 {
 	$copy = $pwd
