@@ -55,7 +55,7 @@ e()
 
 E()
 {
-	printf "\n\e[91m* * * %s * * *\e[39m\n\n" "$@"
+	printf "\n\t\e[91m* * * %s * * *\e[39m\n\n" "$@"
 }
 
 F()
