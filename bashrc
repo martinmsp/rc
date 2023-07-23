@@ -31,7 +31,7 @@ but()
 
 	set -- $(history 2 | head -1)
 
-	if test $# -gt 3; then
+	if test $# -ne 3; then
 		E "I RECKON YOUR WRONG"
 		return 1
 	fi
