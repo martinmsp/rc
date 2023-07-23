@@ -25,9 +25,8 @@ function ..
 	l
 }
 
-function d
+function d($path)
 {
-	param ($path)
 	$copy = $pwd
 
 	cd $path
@@ -38,10 +37,8 @@ function d
 	}
 }
 
-function E
+function E($msg)
 {
-	param ($msg)
-
 	write-host "`n`t`e[91m* * * $msg * * *`n"
 }
 
@@ -50,31 +47,23 @@ function 关电脑
 	stop-computer
 }
 
-function hklm
+function hklm($path)
 {
-	param ($path)
-
 	return "HKLM:\software\microsoft\windows nt\currentversion\$path"
 }
 
-function l
+function l($path)
 {
-	param ($path)
-
-	countFiles $path
+	countFiles $path @args
 }
 
-function rc
+function rc($path)
 {
-	param ($path)
-
 	remove-item -confirm $path
 }
 
-function v
+function v($path)
 {
-	param ($path)
-
 	gvim $path
 }
 
@@ -87,13 +76,17 @@ function x
 
 $global:col_max = 2
 
-function countFiles
+function countFiles($path)
 {
-	param ($path)
 	$num = 1
 	$col = 0
 	$max_spacing = 31
 	$max_files = 105
+
+	if ($args.count -gt 0) {
+		E "$($args.count+1) ARGUMENTS? NOT IN MEXICO"
+		return
+	}
 
 	foreach ($file in get-childitem $path -force) {
 		$spacing = $max_spacing
@@ -153,9 +146,8 @@ function tour
 		{ $('"' + $(get-content $tour) + '"') | write-host -foregroundcolor "white" }
 }
 
-function screenWidth
+function screenWidth($s)
 {
-	param ($s)
 	$width = 0
 
 	for ($i = 0; $i -lt $s.length; $i++) {
