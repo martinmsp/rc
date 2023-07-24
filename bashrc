@@ -2,6 +2,8 @@ set -o noclobber
 
 HISTIGNORE=l:x
 
+PATH="$PATH:$HOME/bin"
+
 prompt()
 {
 	local pwd=
