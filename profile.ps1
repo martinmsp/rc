@@ -1,6 +1,6 @@
 # foreach-object considered harmful
 
-$env:path += ";$home\bin"
+$env:path += ";$home\win32bin"
 $env:path += ";C:\Program Files (x86)\Vim\vim90"
 $env:path += ";C:\program files\llvm\bin"
 $env:path += ";C:\program files\git\bin"
@@ -45,7 +45,6 @@ function d($path)
 	cd $path
 
 	if ($copy.path -ne $pwd.path) {
-		tour
 		countFiles
 	}
 }
@@ -149,14 +148,6 @@ function countFiles($path)
 
 	if ($col -gt 0)
 		{ write-host }
-}
-
-function tour
-{
-	$tour = ".\_tour"
-
-	if (test-path $tour)
-		{ $('"' + $(get-content $tour) + '"') | write-host -foregroundcolor "white" }
 }
 
 function screenWidth($s)
