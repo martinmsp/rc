@@ -42,7 +42,8 @@
     {
         "defaults": 
         {
-            "colorScheme": "seethings.JSON",
+	    "bellStyle": "window",
+            "colorScheme": "seethings.json",
 	    "cursorShape": "filledBox",
             "font": 
             {
@@ -357,7 +358,7 @@
             "cyan": "#00FFFF",
             "foreground": "#3A96DD",
             "green": "#00FF00",
-            "name": "seethings.JSON",
+            "name": "seethings.json",
             "purple": "#9B30FF",
             "red": "#FF0000",
             "selectionBackground": "#FFFFFF",
