@@ -64,9 +64,9 @@ function hklm($path)
 	return "HKLM:\software\microsoft\windows nt\currentversion\$path"
 }
 
-function l($path)
+function l()
 {
-	countFiles $path @args
+	countFiles @args
 }
 
 function rc($path)
@@ -74,9 +74,9 @@ function rc($path)
 	remove-item -confirm $path
 }
 
-function v($path)
+function v()
 {
-	gvim $path
+	gvim @args
 }
 
 function x
