@@ -1,7 +1,7 @@
 # foreach-object considered harmful
 
 $env:path += ";$home\win32bin"
-$env:path += ";C:\Program Files (x86)\Vim\vim90"
+$env:path += ";C:\Program Files (x86)\Vim\vim91"
 $env:path += ";C:\program files\llvm\bin"
 $env:path += ";C:\program files\git\bin"
 $env:path += ";C:\program files\cmake\bin"
