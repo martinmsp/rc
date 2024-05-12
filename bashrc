@@ -181,5 +181,17 @@ count_files()
 l
 
 if test -f $HOME/cal; then
-	cat $HOME/cal
+
+	case $(date +%a) in
+	(Mon) today=周一;;
+	(Tue) today=周二;;
+	(Wed) today=周三;;
+	(Thu) today=周四;;
+	(Fri) today=周五;;
+	(Sat) today=周六;;
+	(Sun) today=周日;;
+	(*) today="";;
+	esac
+
+	cat $HOME/cal | grep $today
 fi
