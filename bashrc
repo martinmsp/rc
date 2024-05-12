@@ -179,3 +179,7 @@ count_files()
 # --- Init ---
 
 l
+
+if test -f $HOME/cal; then
+	cat $HOME/cal
+fi
