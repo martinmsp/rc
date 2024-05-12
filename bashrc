@@ -193,5 +193,5 @@ if test -f $HOME/cal; then
 	(*) today="";;
 	esac
 
-	cat $HOME/cal | grep $today
+	sed -n "/$today/, /^\$/p" cal
 fi
