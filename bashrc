@@ -178,8 +178,6 @@ count_files()
 
 # --- Init ---
 
-l
-
 if test -f $HOME/cal; then
 
 	case $(date +%a) in
@@ -195,3 +193,5 @@ if test -f $HOME/cal; then
 
 	sed -n "/$today/, /^\$/p" cal
 fi
+
+l
