@@ -191,7 +191,8 @@ if test -f $HOME/cal; then
 	(*) today="";;
 	esac
 
-	sed -n "/$today/, /^\$/p" cal
+	sed -n "/$today/,/^\$/ p" cal
+	sed -n "/$((10#$(date +%m)))月$(date +%e)日/,/^\$/ p" cal
 fi
 
 l
