@@ -178,21 +178,4 @@ count_files()
 
 # --- Init ---
 
-if test -f $HOME/cal; then
-
-	case $(date +%a) in
-	(Mon) today=周一;;
-	(Tue) today=周二;;
-	(Wed) today=周三;;
-	(Thu) today=周四;;
-	(Fri) today=周五;;
-	(Sat) today=周六;;
-	(Sun) today=周日;;
-	(*) today="";;
-	esac
-
-	sed -n "/$today/,/^\$/ p" cal
-	sed -n "/$((10#$(date +%m)))月$(date +%e)日/,/^\$/ p" cal
-fi
-
 l
