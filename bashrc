@@ -1,6 +1,8 @@
 set -o noclobber
+unset -f command_not_found_handle
 
 HISTIGNORE=l:x
+IFS=$'\t\n'
 
 PATH="$PATH:$HOME/bin"
 
@@ -29,6 +31,7 @@ PROMPT_COMMAND[0]=prompt
 
 but()
 {
+	local IFS=$' \t\n'
 	local cmd=$1
 
 	set -- $(history 2 | head -1)
@@ -173,6 +176,10 @@ count_files()
 
 	if test $col -gt 0; then
 		printf "\n"
+	fi
+
+	if test $num -le $max_files; then
+		PROMPT_COMMAND[1]="set -- \$(ls -A)"
 	fi
 }
 
