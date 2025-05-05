@@ -180,6 +180,8 @@ count_files()
 
 	if test $num -le $max_files; then
 		PROMPT_COMMAND[1]="set -- \$(ls -A $dir)"
+	else
+		PROMPT_COMMAND[1]=
 	fi
 }
 
