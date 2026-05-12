@@ -16,7 +16,7 @@ prompt()
 		pwd="$PWD"
 	fi
 
-	PS1="《\e[94m$pwd\e[39m》"
+	PS1="\e[91m那么。我们开始。《\e[96m$pwd\e[91m》\e[39m"
 }
 
 PROMPT_COMMAND[0]=prompt
