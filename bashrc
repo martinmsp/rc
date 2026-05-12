@@ -138,13 +138,13 @@ count_files()
 
 		if test -d "$dir$file"; then
 			separator=/
-			color="\e[94m"
+			color="\e[96m"
 		elif test -x "$dir$file"; then
 			separator=\*
 			color="\e[92m"
 		elif test -L "$dir$file"; then
 			separator=@
-			color="\e[96m"
+			color="\e[97m"
 		fi
 
 		printf "\e[93m[$num]\e[39m$color$file\e[39m$separator"
