@@ -9,6 +9,7 @@ PATH="$PATH:$HOME/bin"
 prompt()
 {
 	local pwd=
+	local text=
 
 	if test "${PWD:0:${#HOME}}" = "$HOME"; then
 		pwd="家${PWD:${#HOME}}"
@@ -16,7 +17,11 @@ prompt()
 		pwd="$PWD"
 	fi
 
-	PS1="\e[91m那么。我们开始。《\e[96m$pwd\e[91m》\e[39m"
+	if test $COLUMNS -ge 80; then
+		text="那么。我们开始。"
+	fi
+
+	PS1="\e[91m$text《\e[96m$pwd\e[91m》\e[39m"
 }
 
 PROMPT_COMMAND[0]=prompt
