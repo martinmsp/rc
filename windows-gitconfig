@@ -1,0 +1,6 @@
+[user]
+	name = Martin Silva
+	email = martinmspalma@gmail.com
+[core]
+	editor = "C:\\\\Program\\ Files\\\\Vim\\\\gvim.exe"
+	sshCommand = C:\\\\Windows\\\\System32\\\\OpenSSH\\\\ssh.exe
