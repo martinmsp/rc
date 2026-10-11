@@ -130,6 +130,10 @@ count_files()
 	local max_files=105
 
 	if test $# -eq 1; then
+		if test ! -d "$1/"; then
+			E "$1?! THIS IS THE REAL WORLD MOTHERFUCKER"
+			return 1
+		fi
 		dir="$1/"
 	elif test $# -gt 1; then
 		E "$# ARGUMENTS? NOT IN MEXICO"
