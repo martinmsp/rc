@@ -10,6 +10,7 @@ prompt()
 {
 	local pwd=
 	local text=
+	local nl="\n\e[91m>>>\e[39m "
 
 	if test "${PWD:0:${#HOME}}" = "$HOME"; then
 		pwd="家${PWD:${#HOME}}"
@@ -21,7 +22,7 @@ prompt()
 		text="那么。我们开始。"
 	fi
 
-	PS1="\e[91m$text《\e[96m$pwd\e[91m》\e[39m"
+	PS1="\e[91m$text《\e[96m$pwd\e[91m》\e[39m$nl"
 }
 
 PROMPT_COMMAND[0]=prompt
