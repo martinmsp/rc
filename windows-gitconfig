@@ -3,4 +3,7 @@
 	email = martinmspalma@gmail.com
 [core]
 	editor = "C:\\\\Program\\ Files\\\\Vim\\\\gvim.exe"
+	excludesFile = ~/.gitignore
 	sshCommand = C:\\\\Windows\\\\System32\\\\OpenSSH\\\\ssh.exe
+[init]
+	defaultBranch = master
