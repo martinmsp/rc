@@ -3,6 +3,6 @@
 	email = martinmspalma@gmail.com
 [core]
 	editor = vim
-	excludesFile = /data/data/com.termux/files/home/.gitignore
+	excludesFile = ~/.gitignore
 [init]
 	defaultBranch = master
