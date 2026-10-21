@@ -54,11 +54,6 @@ function E($msg)
 	write-host "`n`t`e[91m* * * $msg * * *`n"
 }
 
-function 关电脑
-{
-	stop-computer
-}
-
 function hklm($path)
 {
 	return "HKLM:\software\microsoft\windows nt\currentversion\$path"
