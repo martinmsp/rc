@@ -1,0 +1,8 @@
+[user]
+	name = Martin Silva
+	email = martinmspalma@gmail.com
+[core]
+	editor = vim
+	excludesFile = /data/data/com.termux/files/home/.gitignore
+[init]
+	defaultBranch = master
