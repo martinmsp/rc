@@ -1,10 +1,11 @@
 set -o noclobber
 unset -f command_not_found_handle
 
-EDITOR=vim
 HISTIGNORE=l:x
 IFS=$'\t\n'
 PATH="$PATH:$HOME/bin"
+
+export EDITOR=vim
 
 prompt()
 {
